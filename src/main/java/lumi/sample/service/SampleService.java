@@ -1,6 +1,7 @@
 package lumi.sample.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 import lumi.dao.DAO;
@@ -66,14 +68,15 @@ public class SampleService extends LumiService {
 
 		int length = uploadfile.length;
 		boolean result = false;
+		successFileNames = new ArrayList<String>(length);
 		for ( int i=0;i<length;i++) {
 
 			if ( log.isDebugEnabled()) {
 				log.debug("size :{}" , uploadfile[i].length());
 				log.debug("name :{}" , uploadfileFileName[i]);
 				log.debug("content-type : {}" , uploadfileContentType[i]);
-
 			}
+			inprogressFileName = uploadfileFileName[i];
 
 			//image/jpeg , image/png以外は受け取らない
 			if (! constService.getAvailableContentTypes().contains(uploadfileContentType[i])) {
@@ -81,7 +84,11 @@ public class SampleService extends LumiService {
 				return false;
 			}
 			result = storeFile(uploadfile[i] , uploadfileFileName[i]);
-			if (! result ) return false;
+			if (! result ) {
+				return false;
+			}
+
+			successFileNames.add(uploadfileFileName[i]);
 		}
 		return result;
 	}
@@ -132,4 +139,10 @@ public class SampleService extends LumiService {
 
 	@Autowired
 	private SampleDTO sample;
+
+	@Getter
+	private List<String> successFileNames;
+
+	@Getter
+	private String inprogressFileName;
 }

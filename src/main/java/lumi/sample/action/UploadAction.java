@@ -3,6 +3,7 @@ package lumi.sample.action;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -51,10 +52,15 @@ public class UploadAction extends LumiActionSupport {
 		result.put("status", bresult);
 		if ( bresult ) {
 			result.put("title", getText("upload.success.title"));
-			result.put("message", getText("upload.success.message" , Arrays.asList(uploadfileFileName)) );
+			List<String> successFileNames = service.getSuccessFileNames();
+			displayFilenames = new StringBuilder("");
+			for ( String successFileName : successFileNames ) {
+				displayFilenames.append(separator).append(successFileName);
+			}
+			result.put("message", getText("upload.success.message" , Arrays.asList(displayFilenames.substring(separator.length()))) );
 		} else {
 			result.put("title", getText("upload.failure.title"));
-			result.put("message", getText("upload.failure.message" , Arrays.asList(uploadfileFileName)) );
+			result.put("message", getText("upload.failure.message" , Arrays.asList(service.getInprogressFileName())) );
 		}
 
 		addActionMessage(getText("upload.complete"));
@@ -95,4 +101,9 @@ public class UploadAction extends LumiActionSupport {
 	 */
 	@Getter @Setter
 	private Map<String, Object> result;
+
+	@Blocked
+	private StringBuilder displayFilenames;
+
+	private static final String separator = ",";
 }
