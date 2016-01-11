@@ -10,7 +10,8 @@ This project depends lumi(https://github.com/A-pZ/lumi) project.
 - Thymeleaf 2.1.4
 
 これは複数ファイルアップロードのサンプルです。
-https://github.com/A-pZ/lumiを利用しています。
+https://github.com/A-pZ/lumi
+を利用しています。
 
 HTML5でお馴染みの、ドラッグ＆ドロップでファイルアップロードを行います。
 
