@@ -166,6 +166,7 @@ var ModalData = function(status,title,message) {
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
+
 		</div>
 	</div>
 
@@ -180,7 +181,7 @@ var ModalData = function(status,title,message) {
 			<div id="filedrop" class="filedrop">
 				<p>アップロードするjpegまたはpngファイルをドロップしてください</p>
 			</div>
-
+			<img src="sample.png" th:attr="src=${action.pictureData}" />
 			</div>
 		</form>
 	</div>

@@ -33,6 +33,8 @@ public class ConstanceService extends LumiService {
 		log.info(" - start.");
 
 		loadAvailableContentTypes();
+		
+		log.info(" - complete.");
 	}
 
 	/**
