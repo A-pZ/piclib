@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.interceptor.annotations.Blocked;
 
 import lombok.Getter;
@@ -34,12 +35,19 @@ import lumi.sample.service.SampleService;
 @Results({
 	// location属性に指定したhtmlファイル名は、/WEB-INF/content 以下からの相対パス。
 	@Result(name = ActionSupport.SUCCESS, type="json" , params={"root","result"}),
+	@Result(name=ActionSupport.INPUT, type="json" , params={"root","uploadOversizeResult"})
 })
 @Controller
 @Scope("prototype")
 @Log4j2
-public class UploadAction extends LumiActionSupport {
-
+public class UploadAction extends LumiActionSupport implements Preparable {
+	
+	public void prepare() {
+		uploadOversizeResult = new HashMap<String,Object>();
+		uploadOversizeResult.put("title", getText("upload.failure.title"));
+		uploadOversizeResult.put("message", getText("upload.failure.fileTooLarge") );
+	}
+	
 	/**
 	 * デフォルトアクション。
 	 */
@@ -101,6 +109,9 @@ public class UploadAction extends LumiActionSupport {
 	 */
 	@Getter @Setter
 	private Map<String, Object> result;
+	
+	@Getter @Setter
+	private Map<String,Object> uploadOversizeResult;
 
 	@Blocked
 	private StringBuilder displayFilenames;
