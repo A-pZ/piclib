@@ -33,8 +33,4 @@ default-autowire="byName"
       <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
 
-    <bean id="sample" class="lumi.sample.dto.SampleDTO">
-      <property name="mail" value="sample@mail.com"/>
-    </bean>
-
 </beans>

@@ -19,7 +19,6 @@ import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 import lumi.dao.DAO;
 import lumi.sample.dto.Picture;
-import lumi.sample.dto.SampleDTO;
 import lumi.service.LumiService;
 
 /**
@@ -45,9 +44,6 @@ public class SampleService extends LumiService {
 	 * @throws Exception
 	 */
 	public List<Map<String,Object>> execute(String param) throws Exception {
-
-		String mail = sample.getMail();
-		log.debug(mail);
 
 		addInfoMessage("display.complete");
 
@@ -136,9 +132,6 @@ public class SampleService extends LumiService {
 	public enum Query {
 		storeFile ,
 	}
-
-	@Autowired
-	private SampleDTO sample;
 
 	@Getter
 	private List<String> successFileNames;

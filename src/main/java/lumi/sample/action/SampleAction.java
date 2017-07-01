@@ -30,7 +30,7 @@ import lumi.sample.service.SampleService;
 @ParentPackage("lumi-default")
 @Results({
 	// location属性に指定したhtmlファイル名は、/WEB-INF/content 以下からの相対パス。
-	@Result(name = ActionSupport.SUCCESS, location = "index" , type="thymeleaf-spring"),
+	@Result(name = ActionSupport.SUCCESS, location = "index" , type="thymeleaf"),
 })
 @Controller
 @Scope("prototype")
